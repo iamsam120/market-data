@@ -19,7 +19,7 @@
 | `data/pct10y.csv` | VIX·지수 하락률·RSI의 최근 10년 분포 백분위 경계값 | 매월 첫 거래일 |
 | `data/hist_drawdown.csv` | 고점 대비 −10%·−20%·−30%에 들었던 과거 사례와 그 뒤 1년·3년 가격 수익률 요약 | 매월 |
 | `data/check.csv` | 같은 날짜의 하락률·200일선·RSI 검산값 | 매월 |
-| `data/sources.json` | 이번에 쓴 출처, 출처별 최신 날짜와 검사 결과 | 실행마다 |
+| `data/status/*.json` | 이번에 쓴 출처, 출처별 최신 날짜와 검사 결과 (`fear_greed`, `monthly`, `upstream`) | 실행마다 |
 | `data/sources/` | 검사를 통과한 월간 원자료의 마지막 정상 사본 | 매월 |
 
 ## 알림

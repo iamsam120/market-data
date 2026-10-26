@@ -40,5 +40,5 @@ jobs:
       - name: 알림
         if: steps.collect.outcome == 'failure'
         run: |
-          echo "::error::출처 알림이 있습니다. '수집과 점검' 단계 기록과 data/sources.json을 보세요."
+          echo "::error::출처 알림이 있습니다. '수집과 점검' 단계 기록과 data/status/을 보세요."
           exit 1

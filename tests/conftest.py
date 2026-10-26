@@ -64,7 +64,7 @@ def isolated(tmp_path, monkeypatch):
     data = tmp_path / "data"
     (data / "sources").mkdir(parents=True)
     monkeypatch.setattr(cli, "DATA", data)
-    monkeypatch.setattr(cli, "STATE", data / "sources.json")
+    monkeypatch.setattr(cli, "STATE_DIR", data / "status")
     monkeypatch.setattr(sources, "LAST_GOOD", data / "sources")
     monkeypatch.setattr(sources, "OWN_FEAR_GREED_FILE", data / "fear_greed.csv")
     return data

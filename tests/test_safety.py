@@ -76,7 +76,7 @@ def test_monthly_builds_tables_and_last_good_copy(isolated):
     for name in ("pct10y.csv", "hist_drawdown.csv", "check.csv"):
         assert (isolated / name).exists()
     assert (isolated / "sources" / "sp500_monthly.csv").exists()
-    state = json.loads((isolated / "sources.json").read_text(encoding="utf-8"))
+    state = json.loads((isolated / "status" / "monthly.json").read_text(encoding="utf-8"))
     assert state["tables"]["month"] == "2026-10"
     assert state["tables"]["used"]["spx_monthly"] == "datasets_sp500"
     assert cli.run_monthly(web, TODAY) == []  # 같은 달이면 다시 만들지 않음
@@ -89,7 +89,7 @@ def test_monthly_falls_back_to_last_good_copy_plus_fred(isolated):
     broken = FakeWeb(_pages(**{sources.DATASETS_SP500: monthly_csv(dt.date(2026, 5, 1), start=MONTHLY_START)}))  # 1순위가 5월에 멈춤
     alerts = cli.run_monthly(broken, TODAY, force=True)
     assert any("1순위 실패로 last_good+fred 사용" in a for a in alerts)
-    state = json.loads((isolated / "sources.json").read_text(encoding="utf-8"))
+    state = json.loads((isolated / "status" / "monthly.json").read_text(encoding="utf-8"))
     assert state["tables"]["used"]["spx_monthly"] == "last_good+fred"
     again = cli.run_monthly(broken, TODAY, force=True)
     assert not any("1순위 실패로" in a for a in again)  # 같은 전환은 한 번만 알린다

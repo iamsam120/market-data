@@ -5,6 +5,7 @@
 
 알림이 필요한 일(2순위로 넘어감, 모든 출처 실패, 값이 다름, 1순위 저장소 멈춤)이 있으면 종료 코드 1을 돌려준다.
 GitHub Actions는 실패한 실행을 저장소 주인에게 메일로 알린다. 실패해도 이미 만든 파일은 커밋한다(워크플로 참고).
+상태와 출처 보고는 data/status/{fear_greed,monthly,upstream}.json에 남는다.
 """
 import argparse
 import datetime as dt
@@ -18,7 +19,8 @@ from marketdata.fetch import http_get
 
 ROOT = sources.ROOT
 DATA = ROOT / "data"
-STATE = DATA / "sources.json"
+# 명령마다 상태 파일을 따로 둔다. 워크플로가 동시에 돌아도 같은 파일을 고치지 않게 (2026-10-26 충돌 뒤)
+STATE_DIR = DATA / "status"
 # 1순위 저장소와 멈춤으로 볼 날수. 매일 갱신하는 곳은 14일, 매달 1일에 갱신하는 곳은 45일.
 UPSTREAM_REPOS = {"whit3rabbit/fear-greed-data": 14, "datasets/s-and-p-500": 45}
 
@@ -27,13 +29,15 @@ def _fetch(url, headers=None):
     return http_get(url, headers)
 
 
-def load_state() -> dict:
-    return json.loads(STATE.read_text(encoding="utf-8")) if STATE.exists() else {"datasets": {}}
+def load_state(name: str) -> dict:
+    path = STATE_DIR / f"{name}.json"
+    return json.loads(path.read_text(encoding="utf-8")) if path.exists() else {"datasets": {}}
 
 
-def save_state(state: dict) -> None:
+def save_state(name: str, state: dict) -> None:
     state["updated"] = dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds")
-    STATE.write_text(json.dumps(state, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    STATE_DIR.mkdir(parents=True, exist_ok=True)
+    (STATE_DIR / f"{name}.json").write_text(json.dumps(state, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 
 def _previous_rows(state: dict, name: str) -> dict[str, int]:
@@ -61,16 +65,16 @@ def run_cnn(fetch=_fetch, today: dt.date | None = None) -> list[str]:
         print(f"예비 CNN 수집: {added}줄 더함")
     except Exception as error:
         alerts.append(f"예비 CNN 수집 실패: {error}")
-    state = load_state()
+    state = load_state("fear_greed")
     choice = sources.choose(sources.FEAR_GREED_SOURCES, fetch, today, _previous_rows(state, "fear_greed"))
     alerts += _record(state, choice, today)
-    save_state(state)
+    save_state("fear_greed", state)
     return alerts
 
 
 def run_monthly(fetch=_fetch, today: dt.date | None = None, force: bool = False) -> list[str]:
     today = today or kst_today()
-    state = load_state()
+    state = load_state("monthly")
     month = today.strftime("%Y-%m")
     if not force and state.get("tables", {}).get("month") == month:
         print(f"{month} 기준표가 이미 있음")
@@ -84,7 +88,7 @@ def run_monthly(fetch=_fetch, today: dt.date | None = None, force: bool = False)
     failed = [name for name, c in chosen.items() if not c.ok]
     if failed:
         alerts.append(f"기준표를 만들지 않음 (지난달 표 유지): {', '.join(failed)}")
-        save_state(state)
+        save_state("monthly", state)
         return alerts
     built = tables.build(chosen["vix"].series, chosen["spx_daily"].series, chosen["ndx_daily"].series,
                          chosen["spx_monthly"].series)
@@ -98,14 +102,14 @@ def run_monthly(fetch=_fetch, today: dt.date | None = None, force: bool = False)
             fetch(sources.DATASETS_SP500, None), encoding="utf-8")
     state["tables"] = {"month": month, "built": today.isoformat(),
                        "used": {name: c.used for name, c in chosen.items()}}
-    save_state(state)
+    save_state("monthly", state)
     print(f"{month} 기준표를 만듦: " + ", ".join(f"{n}={c.used}" for n, c in chosen.items()))
     return alerts
 
 
 def run_upstream(fetch=_fetch, now: dt.datetime | None = None) -> list[str]:
     now = now or dt.datetime.now(dt.timezone.utc)
-    state = load_state()
+    state = load_state("upstream")
     alerts, report = [], {}
     for repo, stale_days in UPSTREAM_REPOS.items():
         try:
@@ -121,7 +125,7 @@ def run_upstream(fetch=_fetch, now: dt.datetime | None = None) -> list[str]:
         elif days > stale_days:
             alerts.append(f"{repo}: {days}일째 갱신 없음")
     state["upstream"] = {"checked": now.isoformat(timespec="seconds"), "repos": report}
-    save_state(state)
+    save_state("upstream", state)
     return alerts
 
 

@@ -1,0 +1,19 @@
+{
+  "datasets": {},
+  "upstream": {
+    "checked": "2026-10-26T07:46:57+00:00",
+    "repos": {
+      "whit3rabbit/fear-greed-data": {
+        "pushed_at": "2026-10-24T01:20:29Z",
+        "archived": false,
+        "days": 2
+      },
+      "datasets/s-and-p-500": {
+        "pushed_at": "2026-10-01T04:56:34Z",
+        "archived": false,
+        "days": 25
+      }
+    }
+  },
+  "updated": "2026-10-26T07:46:58+00:00"
+}

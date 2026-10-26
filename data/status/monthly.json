@@ -1,32 +1,5 @@
 {
   "datasets": {
-    "fear_greed": {
-      "used": "whit3rabbit",
-      "checked": "2026-10-26",
-      "candidates": [
-        {
-          "rank": 1,
-          "id": "whit3rabbit",
-          "url": "https://raw.githubusercontent.com/whit3rabbit/fear-greed-data/main/fear-greed.csv",
-          "rows": 3953,
-          "latest": "2026-10-23",
-          "expected": "2026-10-22",
-          "fresh": true,
-          "problems": []
-        },
-        {
-          "rank": 2,
-          "id": "own",
-          "url": "https://raw.githubusercontent.com/iamsam120/market-data/main/data/fear_greed.csv",
-          "rows": 249,
-          "latest": "2026-10-23",
-          "expected": "2026-10-22",
-          "fresh": true,
-          "problems": []
-        }
-      ],
-      "alerts": []
-    },
     "vix": {
       "used": "cboe",
       "checked": "2026-10-26",
@@ -116,7 +89,6 @@
       "alerts": []
     }
   },
-  "updated": "2026-10-26T07:45:20+00:00",
   "tables": {
     "month": "2026-10",
     "built": "2026-10-26",
@@ -127,19 +99,5 @@
       "spx_monthly": "datasets_sp500"
     }
   },
-  "upstream": {
-    "checked": "2026-10-26T07:44:34+00:00",
-    "repos": {
-      "whit3rabbit/fear-greed-data": {
-        "pushed_at": "2026-10-24T01:20:29Z",
-        "archived": false,
-        "days": 2
-      },
-      "datasets/s-and-p-500": {
-        "pushed_at": "2026-10-01T04:56:34Z",
-        "archived": false,
-        "days": 25
-      }
-    }
-  }
+  "updated": "2026-10-26T07:46:57+00:00"
 }
