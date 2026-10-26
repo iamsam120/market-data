@@ -16,7 +16,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: data-commit
+  group: ${{ github.workflow }}  # 같은 워크플로만 차례로. 상태 파일이 달라 다른 워크플로와는 겹쳐도 된다
   cancel-in-progress: false
 
 jobs:
