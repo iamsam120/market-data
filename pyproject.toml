@@ -1,0 +1,12 @@
+[project]
+name = "marketdata"
+version = "0.1.0"
+description = "공개 시장 데이터 수집·검사·기준표 계산 (표준 라이브러리만 사용)"
+requires-python = ">=3.12"
+
+[project.optional-dependencies]
+dev = ["pytest>=8"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]

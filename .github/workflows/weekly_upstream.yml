@@ -1,0 +1,40 @@
+# 매주: 1순위 저장소가 멈췄거나 보관(archived)됐는지 GitHub API로 본다.
+name: weekly-upstream
+
+on:
+  schedule:
+    - cron: "0 0 * * 1"  # 한국 시각 월요일 09:00
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: data-commit
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: 1순위 저장소 점검
+        id: check
+        continue-on-error: true
+        run: python -m marketdata.cli upstream
+      - name: 커밋
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data
+          git diff --cached --quiet || git commit -q -m "data: 1순위 저장소 점검 ($(date -u +%F))"
+          git pull -q --rebase && git push -q
+      - name: 알림
+        if: steps.check.outcome == 'failure'
+        run: |
+          echo "::error::1순위 저장소가 멈췄거나 보관됐습니다. '1순위 저장소 점검' 단계 기록을 보세요."
+          exit 1

@@ -1,0 +1,145 @@
+{
+  "datasets": {
+    "fear_greed": {
+      "used": "whit3rabbit",
+      "checked": "2026-10-26",
+      "candidates": [
+        {
+          "rank": 1,
+          "id": "whit3rabbit",
+          "url": "https://raw.githubusercontent.com/whit3rabbit/fear-greed-data/main/fear-greed.csv",
+          "rows": 3953,
+          "latest": "2026-10-23",
+          "expected": "2026-10-22",
+          "fresh": true,
+          "problems": []
+        },
+        {
+          "rank": 2,
+          "id": "own",
+          "url": "https://raw.githubusercontent.com/iamsam120/market-data/main/data/fear_greed.csv",
+          "rows": 249,
+          "latest": "2026-10-23",
+          "expected": "2026-10-22",
+          "fresh": true,
+          "problems": []
+        }
+      ],
+      "alerts": []
+    },
+    "vix": {
+      "used": "cboe",
+      "checked": "2026-10-26",
+      "candidates": [
+        {
+          "rank": 1,
+          "id": "cboe",
+          "url": "https://cdn.cboe.com/api/global/us_indices/daily_prices/VIX_History.csv",
+          "rows": 9301,
+          "latest": "2026-10-23",
+          "expected": "2026-10-19",
+          "fresh": true,
+          "problems": []
+        },
+        {
+          "rank": 2,
+          "id": "fred_vixcls",
+          "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=VIXCLS",
+          "rows": 9301,
+          "latest": "2026-10-22",
+          "expected": "2026-10-19",
+          "fresh": true,
+          "problems": []
+        }
+      ],
+      "alerts": []
+    },
+    "spx_daily": {
+      "used": "fred_sp500",
+      "checked": "2026-10-26",
+      "candidates": [
+        {
+          "rank": 1,
+          "id": "fred_sp500",
+          "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=SP500",
+          "rows": 2512,
+          "latest": "2026-10-21",
+          "expected": "2026-10-19",
+          "fresh": true,
+          "problems": []
+        }
+      ],
+      "alerts": []
+    },
+    "ndx_daily": {
+      "used": "fred_nasdaq100",
+      "checked": "2026-10-26",
+      "candidates": [
+        {
+          "rank": 1,
+          "id": "fred_nasdaq100",
+          "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=NASDAQ100",
+          "rows": 10284,
+          "latest": "2026-10-23",
+          "expected": "2026-10-19",
+          "fresh": true,
+          "problems": []
+        }
+      ],
+      "alerts": []
+    },
+    "spx_monthly": {
+      "used": "datasets_sp500",
+      "checked": "2026-10-26",
+      "candidates": [
+        {
+          "rank": 1,
+          "id": "datasets_sp500",
+          "url": "https://raw.githubusercontent.com/datasets/s-and-p-500/main/data/data.csv",
+          "rows": 1869,
+          "latest": "2026-09-01",
+          "expected": "2026-08-01",
+          "fresh": true,
+          "problems": []
+        },
+        {
+          "rank": 2,
+          "id": "last_good+fred",
+          "url": "data/sources/sp500_monthly.csv + FRED SP500",
+          "rows": 1870,
+          "latest": "2026-10-01",
+          "expected": "2026-08-01",
+          "fresh": true,
+          "problems": []
+        }
+      ],
+      "alerts": []
+    }
+  },
+  "updated": "2026-10-26T07:44:35+00:00",
+  "tables": {
+    "month": "2026-10",
+    "built": "2026-10-26",
+    "used": {
+      "vix": "cboe",
+      "spx_daily": "fred_sp500",
+      "ndx_daily": "fred_nasdaq100",
+      "spx_monthly": "datasets_sp500"
+    }
+  },
+  "upstream": {
+    "checked": "2026-10-26T07:44:34+00:00",
+    "repos": {
+      "whit3rabbit/fear-greed-data": {
+        "pushed_at": "2026-10-24T01:20:29Z",
+        "archived": false,
+        "days": 2
+      },
+      "datasets/s-and-p-500": {
+        "pushed_at": "2026-10-01T04:56:34Z",
+        "archived": false,
+        "days": 25
+      }
+    }
+  }
+}
