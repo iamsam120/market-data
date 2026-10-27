@@ -8,8 +8,8 @@
           "rank": 1,
           "id": "whit3rabbit",
           "url": "https://raw.githubusercontent.com/whit3rabbit/fear-greed-data/main/fear-greed.csv",
-          "rows": 3953,
-          "latest": "2026-10-23",
+          "rows": 3954,
+          "latest": "2026-10-26",
           "expected": "2026-10-23",
           "fresh": true,
           "problems": []
@@ -25,8 +25,10 @@
           "problems": []
         }
       ],
-      "alerts": []
+      "alerts": [
+        "fear_greed: whit3rabbit와 own의 값이 다름 (최대 차이 1.9998)"
+      ]
     }
   },
-  "updated": "2026-10-27T00:59:32+00:00"
+  "updated": "2026-10-27T05:57:34+00:00"
 }
