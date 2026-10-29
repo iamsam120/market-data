@@ -8,8 +8,8 @@
           "rank": 1,
           "id": "whit3rabbit",
           "url": "https://raw.githubusercontent.com/whit3rabbit/fear-greed-data/main/fear-greed.csv",
-          "rows": 3955,
-          "latest": "2026-10-27",
+          "rows": 3956,
+          "latest": "2026-10-28",
           "expected": "2026-10-27",
           "fresh": true,
           "problems": []
@@ -30,5 +30,5 @@
       ]
     }
   },
-  "updated": "2026-10-29T01:22:10+00:00"
+  "updated": "2026-10-29T06:43:55+00:00"
 }
