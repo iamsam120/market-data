@@ -2,7 +2,7 @@
   "datasets": {
     "fear_greed": {
       "used": "whit3rabbit",
-      "checked": "2026-10-30",
+      "checked": "2026-10-31",
       "candidates": [
         {
           "rank": 1,
@@ -10,7 +10,7 @@
           "url": "https://raw.githubusercontent.com/whit3rabbit/fear-greed-data/main/fear-greed.csv",
           "rows": 3957,
           "latest": "2026-10-29",
-          "expected": "2026-10-28",
+          "expected": "2026-10-29",
           "fresh": true,
           "problems": []
         },
@@ -18,9 +18,9 @@
           "rank": 2,
           "id": "own",
           "url": "https://raw.githubusercontent.com/iamsam120/market-data/main/data/fear_greed.csv",
-          "rows": 253,
-          "latest": "2026-10-29",
-          "expected": "2026-10-28",
+          "rows": 254,
+          "latest": "2026-10-30",
+          "expected": "2026-10-29",
           "fresh": true,
           "problems": []
         }
@@ -30,5 +30,5 @@
       ]
     }
   },
-  "updated": "2026-10-30T06:45:16+00:00"
+  "updated": "2026-10-31T01:12:09+00:00"
 }
