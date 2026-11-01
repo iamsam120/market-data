@@ -2,15 +2,15 @@
   "datasets": {
     "vix": {
       "used": "cboe",
-      "checked": "2026-10-26",
+      "checked": "2026-11-01",
       "candidates": [
         {
           "rank": 1,
           "id": "cboe",
           "url": "https://cdn.cboe.com/api/global/us_indices/daily_prices/VIX_History.csv",
-          "rows": 9301,
-          "latest": "2026-10-23",
-          "expected": "2026-10-19",
+          "rows": 9306,
+          "latest": "2026-10-30",
+          "expected": "2026-10-26",
           "fresh": true,
           "problems": []
         },
@@ -18,9 +18,9 @@
           "rank": 2,
           "id": "fred_vixcls",
           "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=VIXCLS",
-          "rows": 9301,
-          "latest": "2026-10-22",
-          "expected": "2026-10-19",
+          "rows": 9306,
+          "latest": "2026-10-29",
+          "expected": "2026-10-26",
           "fresh": true,
           "problems": []
         }
@@ -29,15 +29,15 @@
     },
     "spx_daily": {
       "used": "fred_sp500",
-      "checked": "2026-10-26",
+      "checked": "2026-11-01",
       "candidates": [
         {
           "rank": 1,
           "id": "fred_sp500",
           "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=SP500",
-          "rows": 2512,
-          "latest": "2026-10-21",
-          "expected": "2026-10-19",
+          "rows": 2513,
+          "latest": "2026-10-29",
+          "expected": "2026-10-26",
           "fresh": true,
           "problems": []
         }
@@ -46,15 +46,15 @@
     },
     "ndx_daily": {
       "used": "fred_nasdaq100",
-      "checked": "2026-10-26",
+      "checked": "2026-11-01",
       "candidates": [
         {
           "rank": 1,
           "id": "fred_nasdaq100",
           "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=NASDAQ100",
-          "rows": 10284,
-          "latest": "2026-10-23",
-          "expected": "2026-10-19",
+          "rows": 10288,
+          "latest": "2026-10-29",
+          "expected": "2026-10-26",
           "fresh": true,
           "problems": []
         }
@@ -63,7 +63,7 @@
     },
     "spx_monthly": {
       "used": "datasets_sp500",
-      "checked": "2026-10-26",
+      "checked": "2026-11-01",
       "candidates": [
         {
           "rank": 1,
@@ -71,7 +71,7 @@
           "url": "https://raw.githubusercontent.com/datasets/s-and-p-500/main/data/data.csv",
           "rows": 1869,
           "latest": "2026-09-01",
-          "expected": "2026-08-01",
+          "expected": "2026-09-01",
           "fresh": true,
           "problems": []
         },
@@ -81,7 +81,7 @@
           "url": "data/sources/sp500_monthly.csv + FRED SP500",
           "rows": 1870,
           "latest": "2026-10-01",
-          "expected": "2026-08-01",
+          "expected": "2026-09-01",
           "fresh": true,
           "problems": []
         }
@@ -90,8 +90,8 @@
     }
   },
   "tables": {
-    "month": "2026-10",
-    "built": "2026-10-26",
+    "month": "2026-11",
+    "built": "2026-11-01",
     "used": {
       "vix": "cboe",
       "spx_daily": "fred_sp500",
@@ -99,5 +99,5 @@
       "spx_monthly": "datasets_sp500"
     }
   },
-  "updated": "2026-10-26T07:46:57+00:00"
+  "updated": "2026-11-01T02:24:38+00:00"
 }
