@@ -2,7 +2,7 @@
   "datasets": {
     "fear_greed": {
       "used": "whit3rabbit",
-      "checked": "2026-11-01",
+      "checked": "2026-11-02",
       "candidates": [
         {
           "rank": 1,
@@ -30,5 +30,5 @@
       ]
     }
   },
-  "updated": "2026-11-01T07:06:13+00:00"
+  "updated": "2026-11-02T01:06:51+00:00"
 }
