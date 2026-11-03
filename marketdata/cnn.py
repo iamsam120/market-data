@@ -51,7 +51,8 @@ def fetch_rows(fetch: Fetch) -> list[dict[str, str]]:
 
 
 def merge(path: pathlib.Path, new_rows: list[dict[str, str]]) -> int:
-    """파일에 없는 날짜만 더한다. 이미 있는 날짜는 건너뛴다 (하루 2번 실행해도 한 줄). 더한 줄 수를 돌려준다."""
+    """새 날짜는 더하고, 이미 있는 날짜는 CNN의 최신 값으로 고친다 (CNN이 최근 며칠 값을 나중에 바로잡는다).
+    CNN 이력에 없는 옛 날짜는 그대로 둔다. 하루 2번 실행해도 결과가 같다. 새로 더한 줄 수를 돌려준다."""
     existing: dict[str, dict[str, str]] = {}
     if path.exists():
         with path.open(encoding="utf-8", newline="") as f:
@@ -59,8 +60,8 @@ def merge(path: pathlib.Path, new_rows: list[dict[str, str]]) -> int:
     added = 0
     for row in new_rows:
         if row["date"] not in existing:
-            existing[row["date"]] = row
             added += 1
+        existing[row["date"]] = row
     out = io.StringIO()
     writer = csv.DictWriter(out, fieldnames=FIELDS, lineterminator="\n")
     writer.writeheader()

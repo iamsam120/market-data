@@ -160,3 +160,14 @@ def test_upstream_check(isolated):
     api["https://api.github.com/repos/whit3rabbit/fear-greed-data"] = json.dumps(
         {"pushed_at": "2026-10-24T01:20:29Z", "archived": True})
     assert any("보관" in a for a in cli.run_upstream(FakeWeb(api), now))
+
+
+def test_cnn_merge_corrects_revised_values_and_keeps_old_rows(tmp_path):
+    path = tmp_path / "fear_greed.csv"
+    cnn.merge(path, [{"date": "2026-10-01", "score": "40.0000", "rating": "fear"},
+                     {"date": "2026-10-23", "score": "20.9810", "rating": "extreme fear"}])
+    revised = [{"date": "2026-10-23", "score": "16.6857", "rating": "extreme fear"}]
+    assert cnn.merge(path, revised) == 0
+    text = path.read_text(encoding="utf-8")
+    assert "2026-10-23,16.6857" in text and "20.9810" not in text
+    assert "2026-10-01,40.0000" in text
