@@ -6,6 +6,9 @@
   가격이 12개월 최고를 다시 넘기(하락률 0) 전까지 같은 구간의 사례는 한 번만 센다.
 - 그 뒤 1년(12개월)·3년(36개월) 가격 수익률의 최저·중간·최고와 손실 사례 수. 배당은 넣지 않는다.
   1년·3년 뒤 값이 아직 없는 최근 사례는 그 통계에서 뺀다.
+- 사례는 SINCE 이후에 시작한 것만 센다. 1929~32년 대공황(−80%대)이 들어가면 모든 구간의
+  최악 수치가 지금과 다른 시장 구조의 값으로 정해져서, 2000년 이후만 본다 (2026-11-04 요청).
+  하락률은 그 앞 12개월 가격까지 써서 계산하므로 SINCE 직후 달도 정확하다.
 """
 import datetime as dt
 import statistics
@@ -16,6 +19,7 @@ from marketdata.series import Series
 BANDS = (("dd10", 0.10), ("dd20", 0.20), ("dd30", 0.30))
 WINDOW_MONTHS = 12
 HORIZONS = (("1y", 12), ("3y", 36))
+SINCE = dt.date(2000, 1, 1)
 EPS = 1e-9  # 정확히 −20%가 소수 오차로 −19.999…%가 되어 빠지지 않게
 
 
@@ -24,8 +28,8 @@ def drawdowns(monthly: Series) -> list[float]:
     return [values[i] / max(values[max(0, i - WINDOW_MONTHS + 1): i + 1]) - 1 for i in range(len(values))]
 
 
-def episodes(monthly: Series) -> dict[str, list[int]]:
-    """구간마다 사례가 시작된 달의 위치 목록."""
+def episodes(monthly: Series, since: dt.date | None = None) -> dict[str, list[int]]:
+    """구간마다 사례가 시작된 달의 위치 목록. since가 있으면 그 날짜 이후에 시작한 사례만."""
     dd = drawdowns(monthly)
     found: dict[str, list[int]] = {name: [] for name, _ in BANDS}
     armed = {name: True for name, _ in BANDS}
@@ -34,7 +38,8 @@ def episodes(monthly: Series) -> dict[str, list[int]]:
             armed = {name: True for name, _ in BANDS}
         for name, threshold in BANDS:
             if armed[name] and d <= -threshold + EPS:
-                found[name].append(i)
+                if since is None or monthly[i][0] >= since:
+                    found[name].append(i)
                 armed[name] = False
     return found
 
@@ -47,10 +52,10 @@ class BandStats:
     starts: list[dt.date]
 
 
-def band_stats(monthly: Series) -> list[BandStats]:
+def band_stats(monthly: Series, since: dt.date | None = None) -> list[BandStats]:
     values = [v for _, v in monthly]
     out = []
-    for name, starts in episodes(monthly).items():
+    for name, starts in episodes(monthly, since).items():
         stats: dict[str, float | int | None] = {}
         for label, months in HORIZONS:
             returns = [values[i + months] / values[i] - 1 for i in starts if i + months < len(values)]

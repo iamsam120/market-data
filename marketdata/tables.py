@@ -46,9 +46,9 @@ def build(vix: Series, spx_daily: Series, ndx_daily: Series, spx_monthly: Series
 
     hist_rows = []
     for name, monthly in (("spx", spx_monthly), ("ndx", monthly_average(ndx_daily))):
-        for b in hist.band_stats(monthly):
+        for b in hist.band_stats(monthly, hist.SINCE):
             s = b.stats
-            hist_rows.append([name, b.band, b.n] + [_fmt(s[k]) for k in HIST_HEADER[3:11]] + [monthly[0][0].isoformat()])
+            hist_rows.append([name, b.band, b.n] + [_fmt(s[k]) for k in HIST_HEADER[3:11]] + [max(monthly[0][0], hist.SINCE).isoformat()])
 
     check = []
     for name, series in (("spx", spx), ("ndx", ndx)):

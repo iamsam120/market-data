@@ -130,6 +130,19 @@ def test_episodes_counted_once_until_new_high():
     assert eps["dd30"] == [14]
 
 
+def test_since_skips_earlier_episodes_but_keeps_state():
+    # 2000년 시작 자료: 첫 사례(위치 13)는 since 이전이라 빠지고, 이후 사례만 센다
+    values = [100] * 12 + [80] + [100] * 11 + [101] * 24 + [80] + [100] * 30
+    monthly = _monthly(values)
+    all_eps = hist.episodes(monthly)
+    assert len(all_eps["dd20"]) == 2
+    late = hist.episodes(monthly, dt.date(2002, 1, 1))
+    assert late["dd20"] == [all_eps["dd20"][1]]
+    # 하락 중에 since를 지나도 같은 하락을 새 사례로 다시 세지 않는다
+    mid = hist.episodes(_monthly([100] * 12 + [80] * 20 + [100] * 30), dt.date(2001, 6, 1))
+    assert mid["dd20"] == []
+
+
 def test_band_stats_forward_returns():
     values = [100] * 12 + [80] + [88] * 11 + [96] + [100] * 30
     monthly = _monthly(values)
