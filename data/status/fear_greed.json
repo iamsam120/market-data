@@ -2,7 +2,7 @@
   "datasets": {
     "fear_greed": {
       "used": "whit3rabbit",
-      "checked": "2026-11-19",
+      "checked": "2026-11-20",
       "candidates": [
         {
           "rank": 1,
@@ -10,7 +10,7 @@
           "url": "https://raw.githubusercontent.com/whit3rabbit/fear-greed-data/main/fear-greed.csv",
           "rows": 3971,
           "latest": "2026-11-18",
-          "expected": "2026-11-17",
+          "expected": "2026-11-18",
           "fresh": true,
           "problems": []
         },
@@ -18,17 +18,17 @@
           "rank": 2,
           "id": "own",
           "url": "https://raw.githubusercontent.com/iamsam120/market-data/main/data/fear_greed.csv",
-          "rows": 267,
-          "latest": "2026-11-18",
-          "expected": "2026-11-17",
+          "rows": 268,
+          "latest": "2026-11-19",
+          "expected": "2026-11-18",
           "fresh": true,
           "problems": []
         }
       ],
       "alerts": [
-        "fear_greed: whit3rabbit와 own의 값이 다름 (최대 차이 1.0857)"
+        "fear_greed: whit3rabbit와 own의 값이 다름 (최대 차이 5.2780)"
       ]
     }
   },
-  "updated": "2026-11-19T08:21:23+00:00"
+  "updated": "2026-11-20T02:44:32+00:00"
 }
